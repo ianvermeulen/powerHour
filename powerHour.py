@@ -21,7 +21,7 @@ except ValueError:
 if time_per_song <= 0:
   time_per_song = 60
 
-songs = [f for f in os.listdir(location) if os.path.isfile(os.path.join(location, f))]
+songs = [f for f in os.listdir(location) if (os.path.isfile(os.path.join(location, f)) and f[0]!='.')]
 random.shuffle(songs)
 print "playing %d songs for %d seconds each\n" % (len(songs), time_per_song)
 
