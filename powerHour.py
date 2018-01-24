@@ -1,6 +1,9 @@
-import vlc, time, random, os
+#!/usr/bin/env python
+
+import time, random, os
 from Tkinter import Tk
 from tkFileDialog import askdirectory
+from subprocess import Popen
 
 #This will hide the root Tkinter window
 root = Tk()
@@ -26,11 +29,7 @@ random.shuffle(songs)
 print "playing %d songs for %d seconds each\n" % (len(songs), time_per_song)
 
 for i in range(len(songs)):
-  p = vlc.MediaPlayer(os.path.join(location, songs[i]))
-  p.play()
+  p = Popen(["afplay", os.path.join(location, songs[i])])
   print "playing song number %d" % i
-  start = time.time()
-  while start+time_per_song > time.time():
-    pass
-  p.stop()
-  del p
+  time.sleep(time_per_song)
+  p.terminate()
